@@ -26,7 +26,7 @@ from dataAbstract import *
 import conf
 from file import *
 import push
-
+import time
 
 
 def new_home_url(kw,pn):
@@ -132,4 +132,9 @@ def main():
                 pn_num_start=pn_num_end
         push.push_dir_file(conf.read_conf('netelf_cache','./netelf_cache'))
 
-main()
+while True:
+    print('Run main ~')
+    main()
+    print('-'*20)
+    print('Sleep 10800 s')
+    time.sleep(60*60*3)
