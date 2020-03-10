@@ -24,6 +24,9 @@ def push_dir_file(path):
             re_net=net.post_text_agg(data)
             print(re_net)
             data.clear()
-
+    if len(data)>0:
+        re_net = net.post_text_agg(data)
+        print(re_net)
+        data.clear()
 if __name__ == '__main__':
     push_dir_file(conf.read_conf('netelf_cache','./netelf_cache'))
