@@ -47,8 +47,8 @@ def save_json(agg,path):
         write_text_file(json.dumps(agg), path+new_file_name())
 
 
-def save_text(text,path):
+def save_text_logs(text,path,end_str):
     if len(text):
         if not re.search(r'[.\\]$',path):
             path+='/'
-        write_text_file(text,path+new_file_name('logs','.netelf_logs'))
+        write_text_file(text,path+new_file_name('logs','.netelf_logs'+str(end_str)))

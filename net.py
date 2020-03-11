@@ -5,6 +5,7 @@ from lxml import etree
 import re
 import asyncio
 import aiohttp
+import errorClass
 from userAgent import new_user_agent
 
 
@@ -63,7 +64,8 @@ def get_text_streamed(_url_agg,get_max=50,start=0):
                     print('Warning: net url: ',url_agg[streamed_start+data_i],' state: ',url_agg[streamed_start+data_i]['state'])
             streamed_start = streamed_end
         except Exception as e:
-            print("Error_get_text_streamed: ",e)
+            errorClass.new_error_log('Error_get_text_streamed: ',e,'net_error')
+
 
     return return_agg
 

@@ -26,7 +26,7 @@ def from_home_get_content(text, decode='utf-8'):
         html = etree.HTML(text)
         return html.xpath('//*[@id="pagelet_html_frs-list/pagelet/thread_list"]/node()')[0].text
     except Exception as e:
-        print("from_home_get_content : ", e)
+        errorClass.new_error_log('from_home_get_content: ',e,'error')
         return ''
 
 
@@ -41,7 +41,7 @@ def from_home_get_homeMax(text):
         pn_agg = re_get_homeMax.findall(text)
         return  int(pn_agg[len(pn_agg)-1])
     except Exception as e:
-        print("from_home_get_homeMaxError : ", e)
+        errorClass.new_error_log('from_home_get_homeMaxError: ',e,'error')
         return 0
 
 
@@ -89,7 +89,7 @@ def from_page_get_postsData(text, postInfo):
         except errorClass.no_data as e:
             print('yid is null '+e.val)
         except Exception as e:
-            print("Error_from_page_get_postsData : ", e)
+            errorClass.new_error_log('Error_from_page_get_postsData: ',e,'error')
     return return_agg
 
 
@@ -132,7 +132,7 @@ def from_jsonComment_get_pageData(jsonString, postInfo ):
                 )
                 return_agg.append(data_s)
     except Exception as e:
-        print('Error_from_jsonComment_get_pageData: ',e)
+        errorClass.new_error_log('Error_from_jsonComment_get_pageData: ',e,'error')
     return return_agg
 
 # 5720985210

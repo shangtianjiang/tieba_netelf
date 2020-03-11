@@ -1,6 +1,6 @@
 import os
 import re
-
+import errorClass
 
 server_database_url = 'http://127.0.0.1:8880/2020/tieba_netelf_web/view_logic/open.php?a=push_data'
 set_data = {}
@@ -15,7 +15,7 @@ def from_file_read_conf():
         conf_file=open(conf_path,'r+')
         conf_data=conf_file.read(-1)
         conf_file.close()
-        str_r=f"{start_str}([^=\n]*){link_str}([^\n{notes_str}]*)"
+        str_r=f"{start_str}([^\n{link_str}{notes_str}]*){link_str}([^\n{notes_str}]*)"
         data=re.findall(str_r,conf_data)
         for value in data:
             try:
@@ -23,7 +23,8 @@ def from_file_read_conf():
                 v_=value[1]
                 set_data[i_]=v_
             except Exception as e:
-                print("Error_from_file_read_conf : ", e)
+                errorClass.new_error_log('Error_from_file_read_conf: ',e,'error')
+
     else:
         print('./netelf_tieba.ini is null - Please create a file or update the latest profile')
 
