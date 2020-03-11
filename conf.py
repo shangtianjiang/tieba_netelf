@@ -6,6 +6,7 @@ server_database_url = 'http://127.0.0.1:8880/2020/tieba_netelf_web/view_logic/op
 set_data = {}
 start_str='~'
 link_str='='
+notes_str='#'
 
 
 def from_file_read_conf():
@@ -14,7 +15,7 @@ def from_file_read_conf():
         conf_file=open(conf_path,'r+')
         conf_data=conf_file.read(-1)
         conf_file.close()
-        str_r=f"{start_str}([^=\n]*){link_str}([^\n]*)"
+        str_r=f"{start_str}([^=\n]*){link_str}([^\n{notes_str}]*)"
         data=re.findall(str_r,conf_data)
         for value in data:
             try:
