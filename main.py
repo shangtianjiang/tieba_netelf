@@ -91,6 +91,8 @@ def post_agg_url(posts_agg_source):
 def main():
     #makedirs
     makedirs_if_exists(conf.read_conf('netelf_logs'))
+    #read_conf
+    pn_num_max_conf = int(conf.read_conf('max_tieba_page',300)) * 50  # max page
     #run netelf
     ba_agg = []
     try:
@@ -105,23 +107,22 @@ def main():
     except Exception as e:
         errorClass.new_error_log('target_part_Error: ',e,'error')
     print('target_agg: ',ba_agg)
-    posts_agg = []
+
     for ba_i in range(0, len(ba_agg)):
         try:
             home_agg = get_text_streamed([new_home_url(ba_agg[ba_i], 0) ])
             #mkdir and clear dir file
-            all_remove_dir(conf.read_conf('netelf_cache','./netelf_cache')) 
-
+            all_remove_dir(conf.read_conf('netelf_cache','./netelf_cache'))
+            posts_agg = []
             for home_i in range(0, len(home_agg)):
-                pn_num_max_conf=350*50
                 home_content_code = from_home_get_content(home_agg[home_i])
                 posts_agg += from_text_get_posts(home_content_code)
-                pn_num_max = from_home_get_homeMax(home_content_code)
+                pn_num_max = min( from_home_get_homeMax(home_content_code), pn_num_max_conf)
                 pn_num_start = 1*50
                 pn_num_now = 100*50
                 while pn_num_start < pn_num_max:
                     pn_num_end=pn_num_start+pn_num_now
-                    get_list_url_agg = [new_home_url(ba_agg[home_i], pn_num_i) for pn_num_i in range(pn_num_start,min( pn_num_max + 50,pn_num_end),50)]
+                    get_list_url_agg = [new_home_url(ba_agg[home_i], pn_num_i) for pn_num_i in range(pn_num_start,min(pn_num_max+ 50,pn_num_end ),50)]
                     get_list_agg = get_text_streamed(get_list_url_agg)
                     for list_i in range(0, len(get_list_agg)):
                         data=from_home_get_content(get_list_agg[list_i])
