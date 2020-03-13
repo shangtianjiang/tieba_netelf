@@ -97,9 +97,7 @@ def main():
     ba_agg = []
     try:
         print('target_part_source', conf.read_conf('website_get_target_part'))
-        target_part = json.loads(
-            get_text_streamed([conf.read_conf('website_get_target_part')])[0]
-                                 )
+        target_part = json.loads( get_text_streamed([conf.read_conf('website_get_target_part')])[0] )
         if target_part['code'] == 200:
             ba_agg=target_part['data']
         else:
@@ -146,12 +144,13 @@ def main():
 
 
 while True:
+
     try:
         print('Run main ~')
         main()
         print('-'*20)
-        print('Sleep 10800 s')
-        time.sleep(10800)
+        print('Sleep 10 s')
+        time.sleep(10)
     except Exception as e:
         errorClass.new_error_log('main_Error: ',e,'error')
 

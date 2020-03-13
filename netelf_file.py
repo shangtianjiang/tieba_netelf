@@ -14,16 +14,27 @@ def new_file_name(start_str='',end_str=''):
 def makedirs_if_exists(path):
     if not os.path.exists(path):
         os.makedirs(path)
+        print('create',path)
     else:
         print(path , 'is exists')
     return path
 
 
 def write_text_file(data,path_url='./text'):
-    f=open(path_url,"w",encoding='utf-8')
-    f.truncate()
-    f.write(data)
-    f.close()
+    for i in range(0,2):
+        try:
+            f=open(path_url,"w",encoding='utf-8')
+            f.truncate()
+            f.write(data)
+            f.close()
+            break
+        except Exception as e:
+            dir_path=re.search(r'[\S\s]*[\\|/]', path_url)
+            if dir_path != None:
+                makedirs_if_exists(dir_path[0])
+            else:
+                print(dir_path)
+
 
 
 def new_time(g="%Y-%m-%d-%I-%M-%S-"):
@@ -32,7 +43,7 @@ def new_time(g="%Y-%m-%d-%I-%M-%S-"):
 
 
 def all_remove_dir(path_dir):
-    path_dir_conf = path_dir
+    path_dir_conf = str(path_dir)
     if re.search(r'[/\\]$',path_dir):
         path_dir_conf = path_dir[0:len(path_dir)-1]
     makedirs_if_exists(path_dir_conf)
@@ -41,6 +52,7 @@ def all_remove_dir(path_dir):
 
 
 def save_json(agg,path):
+
     if len(agg):
         if not re.search(r'[/\\]$',path):
             path+='/'
@@ -52,3 +64,4 @@ def save_text_logs(text,path,end_str):
         if not re.search(r'[.\\]$',path):
             path+='/'
         write_text_file(text,path+new_file_name('logs','.netelf_logs'+str(end_str)))
+

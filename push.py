@@ -28,13 +28,13 @@ def push_dir_file(path):
                     print(re_net)
                     data.clear()
             except Exception as e:
-                errorClass.new_error_log('push_dir_file_for_Error: ',e,'net_error')
+                errorClass.new_error_log('push_dir_file_for_Error: ',e,'error')
         if len(data)>0:
             re_net = net.post_text_agg(data)
             print(re_net)
             data.clear()
     except Exception as e:
-        errorClass.new_error_log('Error_push_dir_file_Error: ',e,'net_error')
+        errorClass.new_error_log('Error_push_dir_file_Error: ',e,'error')
 
 if __name__ == '__main__':
     push_dir_file(conf.read_conf('netelf_cache','./netelf_cache'))
