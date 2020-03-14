@@ -65,7 +65,7 @@ def get_text_streamed(_url_agg,get_max=50,start=0):
             streamed_start = streamed_end
         except Exception as e:
             errorClass.new_error_log('Error_get_text_streamed: ',e,'net_error')
-
-
+    if len(url_agg) == get_max:
+        time.sleep(1)
     return return_agg
 

@@ -137,8 +137,10 @@ def main():
                         post_agg_url(posts_agg_source)
                         # posts_start next
                         posts_agg_start = posts_agg_end
+                    push.push_dir_file(conf.read_conf('netelf_cache', './netelf_cache'))
+                    all_remove_dir(conf.read_conf('netelf_cache', './netelf_cache'))
                     pn_num_start=pn_num_end
-            push.push_dir_file(conf.read_conf('netelf_cache','./netelf_cache'))
+
         except Exception as e:
             errorClass.new_error_log('get_ba_Error: ',e,'error')
 
