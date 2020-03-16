@@ -17,6 +17,7 @@ def push_dir_file(path):
                 file_path=dir+file_name
                 file=open(file_path,"r")
                 json_string=file.read(-1)
+                file.close()
                 data.append({
                     'url':url,
                     'data':{

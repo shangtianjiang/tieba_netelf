@@ -22,18 +22,21 @@ def makedirs_if_exists(path):
 
 def write_text_file(data,path_url='./text'):
     for i in range(0,2):
+        f=None
         try:
             f=open(path_url,"w",encoding='utf-8')
             f.truncate()
             f.write(data)
-            f.close()
             break
         except Exception as e:
+            if f!=None:
+                f.close()
             dir_path=re.search(r'[\S\s]*[\\|/]', path_url)
             if dir_path != None:
                 makedirs_if_exists(dir_path[0])
             else:
                 print(dir_path)
+
 
 
 
