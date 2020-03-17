@@ -32,7 +32,7 @@ import json
 
 
 def new_home_url(kw,pn):
-    return f'https://tieba.baidu.com/f?ie=utf-8&kw={kw}&pn={pn}'
+    return f'https://tieba.baidu.com/f?ie=utf-8&kw={kw}&pn={pn}&tab=main'
 
 
 
@@ -48,7 +48,6 @@ def new_post_url(tid,pn):
 def post_agg_url(posts_agg_source):
     try:
         for posts_i in range(0, len(posts_agg_source)):
-            
                 # from post pn 2 so post_pn
                 post_pn = 1
                 post_home = posts_agg_source[posts_i]
@@ -117,7 +116,7 @@ def main():
                 posts_agg += from_text_get_posts(home_content_code)
                 pn_num_max = min( from_home_get_homeMax(home_content_code), pn_num_max_conf)
                 pn_num_start = 1*50
-                pn_num_now = 100*50
+                pn_num_now = 2*50
                 while pn_num_start < pn_num_max:
                     pn_num_end=pn_num_start+pn_num_now
                     get_list_url_agg = [new_home_url(ba_agg[home_i], pn_num_i) for pn_num_i in range(pn_num_start,min(pn_num_max+ 50,pn_num_end ),50)]
@@ -127,7 +126,7 @@ def main():
                         posts_agg += from_text_get_posts(data)
                     del get_list_agg
                     del get_list_url_agg
-                    posts_agg=list(set(posts_agg))
+                    posts_agg = list(set(posts_agg))
                     posts_agg_start = 0
                     posts_agg_now = 100
                     while posts_agg_start < len(posts_agg):

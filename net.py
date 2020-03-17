@@ -47,7 +47,7 @@ def get_text_agg(url_agg):
 
 
 
-def get_text_streamed(_url_agg,get_max=50,start=0):
+def get_text_streamed(_url_agg,get_max=40,start=0):
     streamed_start = start
     return_agg = []
     url_agg= _url_agg.copy()
